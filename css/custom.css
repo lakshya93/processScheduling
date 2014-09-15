@@ -1,0 +1,28 @@
+body {
+	background-color: #000;
+	color: #f0f0f0 !important;
+	font-family: "Monospace" !important;
+}
+
+#sidebar-wrapper {
+	background-color: #1d1d1d;
+}
+
+.sidebar-brand {
+	background-color: #0e0e0e;
+}
+
+.well {
+	background-color: #1d1d1d;
+}
+
+input[type=text] {
+	background-color: #000;
+	color: #f0f0f0;
+	font-size: 1.2em;
+	width:35px;
+}
+
+table {
+	font-weight: bold;
+}

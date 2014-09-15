@@ -1,0 +1,50 @@
+<h2>First Come First Serve</h2>
+
+<canvas id="can" width="1275" height="200"></canvas>
+
+<hr>
+
+<div class="row">
+	<div class="col-sm-1">
+		<button id="next" class="btn btn-success btn-sm text-center" ng-click="runIt()">Step</button>
+		<!-- <h3 class="text-center">Elapsed : {{timer}}</h3> -->
+	</div>
+	<div class="well well-sm col-sm-8 col-sm-offset-1">
+		<div class="row">
+			<div class="col-sm-6">
+				<h4 class="text-center">Total Wait Time : {{waitTime | number:2}}</h4>
+			</div>
+			<div class="col-sm-6">
+				<h4 class="text-center">Total Turn Around Time : {{turnAroundTime | number:2}}</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<h4 class="text-center">Avg Wait Time : {{(waitTime / numberOfProcs) | number:2}}</h4>
+			</div>
+			<div class="col-sm-6">
+				<h4 class="text-center">Avg Turn Around Time : {{(turnAroundTime / numberOfProcs) | number:2}}</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-2">
+		<table class="table">
+			<thead>
+				<td>Processes <input type="text" class="text-center" ng-model="numberOfProcs"></td>
+				<td>Arrival Time</td>
+				<td>Burst Time</td>
+			</thead>
+			<tbody>
+				<tr ng-repeat="i in [] | range:numberOfProcs">
+					<td style="color:{{colorsList[i%5]}}">P{{i}}</td>
+					<td><input class="text-center" type="text" ng-model="at[i]"></td>
+					<td><input class="text-center" type="text" ng-model="bt[i]"></td>
+				</tr>
+			</tbody>
+		</table>
+		<button id="assign" class="btn btn-default btn-sm text-center" ng-click="assignValues()">Assign</button>
+	</div>
+</div>
