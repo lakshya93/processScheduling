@@ -1,6 +1,7 @@
 $app = angular.module('pScheduling', [
 	'ngRoute',
 	'FCFSController',
+	'SJFController',
 	'RRobinController'
 ]);
 
@@ -12,6 +13,10 @@ $app.config(function($routeProvider) {
 		.when('/fcfs', {
 			templateUrl: 'templates/fcfs.html',
 			controller: 'FCFSCtrl'
+		})
+		.when('/sjf', {
+			templateUrl: 'templates/sjf.html',
+			controller: 'SJFCtrl'
 		})
 		.when('/rrobin', {
 			templateUrl: 'templates/rrobin.html',

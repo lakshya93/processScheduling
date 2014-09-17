@@ -20,12 +20,22 @@ var colorsList = [
 	"rgb(197, 120, 93)"
 ];
 
-function compareAt (a, b) {
-  if (a.at < b.at)
-     return -1;
-  if (a.at > b.at)
-    return 1;
-  return 0;
+function compareBy (ch) {
+	return function (a, b) {
+	  if (a[ch] < b[ch])
+	     return -1;
+	  if (a[ch] > b[ch])
+	    return 1;
+	  return 0;
+	}
+}
+
+function compareBt (a, b) {
+	  if (a.bt < b.bt)
+	     return -1;
+	  if (a.bt > b.bt)
+	    return 1;
+	  return 0;
 }
 
 function canvasReset(canvas) {

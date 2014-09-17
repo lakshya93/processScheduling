@@ -87,7 +87,7 @@ $app.controller('FCFSCtrl', function($scope) {
 				for(var j=0; j<$scope.numberOfProcs; j++) {
 					if(p[j].at <= $scope.timer && !p[j].executed) {
 						rq.push(p[j]);
-						rq.sort(compareAt);
+						rq.sort(compareBy('at'));
 						p[j].executed = 1;
 					}
 				}
