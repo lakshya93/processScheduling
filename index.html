@@ -21,8 +21,8 @@
 
 		<!-- your app's js -->
 		<script src="js/app.js"></script>
-		<script src="js/config.js"></script>
-		<script src="js/controllers.js"></script>
+		<script src="js/FCFSCtrl.js"></script>
+		<script src="js/RRobinCtrl.js"></script>
 	</head>
 
 
@@ -35,7 +35,7 @@
 			<div id="sidebar-wrapper">
 				<ul class="sidebar-nav">
 					<li class="sidebar-brand">
-							<a href="#">
+							<a>
 									Process Scheduling
 							</a>
 					</li>
@@ -43,22 +43,13 @@
 							<a href="#fcfs" class="menu-toggle">FCFS</a>
 					</li>
 					<li>
-							<a href="#">Shortcuts</a>
+							<a href="#rrobin" class="menu-toggle">Round Robin</a>
 					</li>
 					<li>
 							<a href="#">Overview</a>
 					</li>
 					<li>
 							<a href="#">Events</a>
-					</li>
-					<li>
-							<a href="#">About</a>
-					</li>
-					<li>
-							<a href="#">Services</a>
-					</li>
-					<li>
-							<a href="#">Contact</a>
 					</li>
 				</ul>
 			</div>
@@ -79,13 +70,7 @@
 
 		</div>
 
-		<!-- Menu Toggle Script -->
-		<script>
-		$(".menu-toggle").click(function() {
-				$("#wrapper").toggleClass("toggled");
-		});
-		</script>
-
+		<script src="js/config.js"></script>
 	</body>
 
 </html>

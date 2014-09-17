@@ -1,4 +1,8 @@
-$app = angular.module('pScheduling', ['ngRoute','pSchedulingControllers']);
+$app = angular.module('pScheduling', [
+	'ngRoute',
+	'FCFSController',
+	'RRobinController'
+]);
 
 $app.config(function($routeProvider) {
 	$routeProvider
@@ -9,7 +13,20 @@ $app.config(function($routeProvider) {
 			templateUrl: 'templates/fcfs.html',
 			controller: 'FCFSCtrl'
 		})
+		.when('/rrobin', {
+			templateUrl: 'templates/rrobin.html',
+			controller: 'RRobinCtrl'
+		})
 		.otherwise({
 			redirectTo: '/home'
 		});
+});
+
+$app.filter('range', function() {
+  return function(val, range) {
+    range = parseInt(range);
+    for (var i=0; i<range; i++)
+      val.push(i);
+    return val;
+  };
 });

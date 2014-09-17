@@ -1,3 +1,7 @@
+$(".menu-toggle").click(function() {
+		$("#wrapper").toggleClass("toggled");
+});
+
 function Process (bt, at, prior, color, executed) {
 	this.bt = bt;
 	this.at = at || 0;
