@@ -1,14 +1,14 @@
 $app = angular.module('RRobinController', []);
 
 $app.controller('RRobinCtrl', function($scope) {
-	$scope.colorsList = colorsList;
 	var canvas = new fabric.StaticCanvas('canvas');
+	$scope.colorsList = colorsList;
+	$("#step").prop('disabled', true);
 	$scope.at = [];
 	$scope.bt = [];
 	var newLeft, topTimerPos, i;
 	var p = [];
 	var rq = [];
-	$("#step").prop('disabled', true);
 
 	$scope.assignValues = function() {
 		$scope.timer = 0;
@@ -18,25 +18,20 @@ $app.controller('RRobinCtrl', function($scope) {
 		topTimerPos = 128;
 		p = [];
 		rq = [];
-		i=0;
-		canvas.clear();
+
+		canvasReset(canvas);
+
+		p.sort(compareAt);
 
 		for(var j=0;j<$scope.numberOfProcs;j++) {
-			p.push(new Process(Number($scope.bt[j]),Number($scope.at[j]),3,colorsList[j%5]));
-			canvas.add(p[j].bar);
+			p.push(new Process(j,Number($scope.bt[j]),Number($scope.at[j]),3,colorsList[j%5]));
 			if(p[j].at <= $scope.timer) {
 				rq.push(p[j]);
 				p[j].executed = 1;
 			}
 		}
 
-		canvas.add(new fabric.Text("0", {
-		  fill: '#f0f0f0',
-		  fontSize: 23,
-		  fontWeight: 'Bold',
-		  left: newLeft,
-		  top: topTimerPos
-		}));
+		drawRQ(canvas, rq);
 
 		$("#step").prop('disabled', false);
 	}
@@ -45,25 +40,38 @@ $app.controller('RRobinCtrl', function($scope) {
 
 		$("#step").prop('disabled', true);
 
-		$scope.waitTime += $scope.timer - rq[0].at;
+		var burstLength = rq[0].bt>$scope.tq ? $scope.tq*25 : rq[0].bt*25;
+		rq[0].bt -= burstLength/25;
 
-		$scope.timer += rq[0].bt;
+		$scope.timer += burstLength/25;
 
-		$scope.turnAroundTime += $scope.timer - rq[0].at;
+		for(var i=1;i<rq.length;i++)
+			$scope.waitTime += burstLength/25;
 
-		var burstLength = rq[i].bt*25;
+		if(rq[0].bt === 0)
+			$scope.turnAroundTime += $scope.timer - rq[0].at;
 
-		rq[i].bar.set('left',newLeft);
+		rq[0].bar.set('left',newLeft);
 
-		newLeft += rq[i].bar.getWidth()+burstLength+1;
+		var bar = new fabric.Rect({
+			left:newLeft,
+			top:50,
+			fill: rq[0].color,
+			width: 0,
+			height: 75,
+		});
 
-		rq[i].bar.animate('width', burstLength, {
+		canvas.add(bar);
+
+		newLeft += burstLength+1;
+
+		bar.animate('width', burstLength, {
 			onChange: canvas.renderAll.bind(canvas),
-	  	duration: rq[i].bt*150,
-		  easing: fabric.util.ease.easeOutCubic,
+	 	 	duration: (burstLength/25)*150,
+	    easing: fabric.util.ease.easeOutCubic,
 			onComplete: function(){
 
-				if(rq[i].bt<2) {
+				if(burstLength/25 < 2) {
 					if(topTimerPos==128)
 						topTimerPos=150;
 					else
@@ -73,28 +81,43 @@ $app.controller('RRobinCtrl', function($scope) {
 					topTimerPos=128;
 
 				canvas.add(new fabric.Text($scope.timer.toString(), {
-				  fill: rq[i].color,
+				  fill: rq[0].color,
 				  fontSize: 23,
 				  fontWeight: 'Bold',
 				  left: newLeft-10,
 				  top: topTimerPos
 				}));
 
-				rq.splice(0,1);
-
 				for(var j=0; j<$scope.numberOfProcs; j++) {
 					if(p[j].at <= $scope.timer && !p[j].executed) {
 						rq.push(p[j]);
-						rq.sort(compareAt);
 						p[j].executed = 1;
+						$scope.waitTime += $scope.timer - p[j].at;
 					}
 				}
 
-				if(rq[0]) {
+				if(rq[0].bt === 0) {
+					rq.splice(0,1);
+				}
+				else {
+					var x=rq[0];
+					rq.splice(0,1);
+					rq.push(x);
+				}
+
+				clearCPU(canvas);
+
+				if( rq[0].bt === 0 && rq.length === 1 ) {
+					$("#step").prop('disabled', true);
+					rq.splice(0,1);
+				}
+
+				drawRQ(canvas, rq);
+
+				if( rq[0] )  {
 					$("#step").prop('disabled', false);
 				}
 			}
 		});
  	}
-
 });

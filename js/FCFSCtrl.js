@@ -1,14 +1,14 @@
 $app = angular.module('FCFSController', []);
 
 $app.controller('FCFSCtrl', function($scope) {
-	$scope.colorsList = colorsList;
 	var canvas = new fabric.StaticCanvas('canvas');
+	$scope.colorsList = colorsList;
+	$("#step").prop('disabled', true);
 	$scope.at = [];
 	$scope.bt = [];
 	var newLeft, topTimerPos, i;
 	var p = [];
 	var rq = [];
-	$("#step").prop('disabled', true);
 
 	$scope.assignValues = function() {
 		$scope.timer = 0;
@@ -18,25 +18,18 @@ $app.controller('FCFSCtrl', function($scope) {
 		topTimerPos = 128;
 		p = [];
 		rq = [];
-		i=0;
-		canvas.clear();
+
+		canvasReset(canvas);
 
 		for(var j=0;j<$scope.numberOfProcs;j++) {
-			p.push(new Process(Number($scope.bt[j]),Number($scope.at[j]),3,colorsList[j%5]));
-			canvas.add(p[j].bar);
+			p.push(new Process(j,Number($scope.bt[j]),Number($scope.at[j]),3,colorsList[j%5]));
 			if(p[j].at <= $scope.timer) {
 				rq.push(p[j]);
 				p[j].executed = 1;
 			}
 		}
 
-		canvas.add(new fabric.Text("0", {
-		  fill: '#f0f0f0',
-		  fontSize: 23,
-		  fontWeight: 'Bold',
-		  left: newLeft,
-		  top: topTimerPos
-		}));
+		drawRQ(canvas, rq);
 
 		$("#step").prop('disabled', false);
 	}
@@ -45,25 +38,34 @@ $app.controller('FCFSCtrl', function($scope) {
 
 		$("#step").prop('disabled', true);
 
+
 		$scope.waitTime += $scope.timer - rq[0].at;
 
 		$scope.timer += rq[0].bt;
 
 		$scope.turnAroundTime += $scope.timer - rq[0].at;
 
-		var burstLength = rq[i].bt*25;
+		var burstLength = rq[0].bt*25;
 
-		rq[i].bar.set('left',newLeft);
+		var bar = new fabric.Rect({
+			left:newLeft,
+			top:50,
+			fill: rq[0].color,
+			width: 0,
+			height: 75,
+		});
 
-		newLeft += rq[i].bar.getWidth()+burstLength+1;
+		canvas.add(bar);
 
-		rq[i].bar.animate('width', burstLength, {
+		newLeft += burstLength+1;
+
+		bar.animate('width', burstLength, {
 			onChange: canvas.renderAll.bind(canvas),
-	  	duration: rq[i].bt*150,
+	  	duration: rq[0].bt*150,
 		  easing: fabric.util.ease.easeOutCubic,
 			onComplete: function(){
 
-				if(rq[i].bt<2) {
+				if(rq[0].bt<2) {
 					if(topTimerPos==128)
 						topTimerPos=150;
 					else
@@ -73,7 +75,7 @@ $app.controller('FCFSCtrl', function($scope) {
 					topTimerPos=128;
 
 				canvas.add(new fabric.Text($scope.timer.toString(), {
-				  fill: rq[i].color,
+				  fill: rq[0].color,
 				  fontSize: 23,
 				  fontWeight: 'Bold',
 				  left: newLeft-10,
@@ -90,8 +92,14 @@ $app.controller('FCFSCtrl', function($scope) {
 					}
 				}
 
+				clearCPU(canvas);
+
 				if(rq[0]) {
+					drawRQ(canvas, rq);
 					$("#step").prop('disabled', false);
+				}
+				else {
+					drawRQ(canvas, rq);
 				}
 			}
 		});

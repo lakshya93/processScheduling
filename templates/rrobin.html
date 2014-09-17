@@ -33,9 +33,10 @@
 	<div class="col-sm-8 col-sm-offset-2">
 		<table class="table">
 			<thead>
-				<td>Processes <input type="text" class="text-center" ng-change="updateNoProcesses()" ng-model="numberOfProcs"></td>
+				<td>Processes <input type="text" class="text-center" ng-model="numberOfProcs"></td>
 				<td>Arrival Time</td>
 				<td>Burst Time</td>
+				<td>TQ <input class="text-center" type="text" ng-model="tq"></td>
 			</thead>
 			<tbody>
 				<tr ng-repeat="i in [] | range:numberOfProcs">
