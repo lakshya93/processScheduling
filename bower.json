@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "authors": [
     "Lakshya Ranganath <lakshya93@gmail.com>",
-    "Peri Nikhil <peri.nikhil10@gmail.com>"
   ],
   "description": "Operating Systems: Process Scheduling",
   "main": "index.html",

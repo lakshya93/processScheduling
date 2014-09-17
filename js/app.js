@@ -1,8 +1,3 @@
-/**
-* pScheduling Module
-*
-* Process Scheduling
-*/
 $app = angular.module('pScheduling', ['ngRoute','pSchedulingControllers']);
 
 $app.config(function($routeProvider) {
