@@ -9,6 +9,7 @@ $app.controller('SJFCtrl', function($scope) {
 	var newLeft, topTimerPos, i;
 	var p = [];
 	var rq = [];
+	var scheduledProcess = {};
 
 	$scope.assignValues = function() {
 		$scope.timer = 0;
@@ -31,7 +32,7 @@ $app.controller('SJFCtrl', function($scope) {
 
 		rq.sort(compareBy("bt"));
 
-		drawRQ(canvas, rq);
+		scheduledProcess = drawRQ(canvas, rq);
 
 		$("#step").prop('disabled', false);
 	}
@@ -61,50 +62,57 @@ $app.controller('SJFCtrl', function($scope) {
 
 		newLeft += burstLength+1;
 
-		bar.animate('width', burstLength, {
+		scheduledProcess.animate('left', 50, {
 			onChange: canvas.renderAll.bind(canvas),
-	  	duration: rq[0].bt*150,
+	  	duration: 500,
 		  easing: fabric.util.ease.easeOutCubic,
-			onComplete: function(){
+		  onComplete: function(){
+		  	bar.animate('width', burstLength, {
+					onChange: canvas.renderAll.bind(canvas),
+			  	duration: rq[0].bt*150,
+				  easing: fabric.util.ease.easeOutCubic,
+					onComplete: function(){
 
-				if(rq[0].bt<2) {
-					if(topTimerPos==128)
-						topTimerPos=150;
-					else
-						topTimerPos=128;
-				}
-				else
-					topTimerPos=128;
+						if(rq[0].bt<2) {
+							if(topTimerPos==128)
+								topTimerPos=150;
+							else
+								topTimerPos=128;
+						}
+						else
+							topTimerPos=128;
 
-				canvas.add(new fabric.Text($scope.timer.toString(), {
-				  fill: rq[0].color,
-				  fontSize: 23,
-				  fontWeight: 'Bold',
-				  left: newLeft-10,
-				  top: topTimerPos
-				}));
+						canvas.add(new fabric.Text($scope.timer.toString(), {
+						  fill: rq[0].color,
+						  fontSize: 23,
+						  fontWeight: 'Bold',
+						  left: newLeft-10,
+						  top: topTimerPos
+						}));
 
-				rq.splice(0,1);
+						rq.splice(0,1);
 
-				for(var j=0; j<$scope.numberOfProcs; j++) {
-					if(p[j].at <= $scope.timer && !p[j].executed) {
-						rq.push(p[j]);
-						rq.sort(compareBy("at"));
-						p[j].executed = 1;
+						for(var j=0; j<$scope.numberOfProcs; j++) {
+							if(p[j].at <= $scope.timer && !p[j].executed) {
+								rq.push(p[j]);
+								rq.sort(compareBy("at"));
+								p[j].executed = 1;
+							}
+						}
+
+						rq.sort(compareBy("bt"));
+
+						clearCPU(canvas);
+
+						if(rq[0]) {
+							scheduledProcess = drawRQ(canvas, rq);
+							$("#step").prop('disabled', false);
+						}
+						else {
+							scheduledProcess = drawRQ(canvas, rq);
+						}
 					}
-				}
-
-				rq.sort(compareBy("bt"));
-
-				clearCPU(canvas);
-
-				if(rq[0]) {
-					drawRQ(canvas, rq);
-					$("#step").prop('disabled', false);
-				}
-				else {
-					drawRQ(canvas, rq);
-				}
+				});
 			}
 		});
  	}

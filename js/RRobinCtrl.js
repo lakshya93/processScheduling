@@ -9,6 +9,7 @@ $app.controller('RRobinCtrl', function($scope) {
 	var newLeft, topTimerPos, i;
 	var p = [];
 	var rq = [];
+	var scheduledProcess = {};
 
 	$scope.assignValues = function() {
 		$scope.timer = 0;
@@ -30,7 +31,7 @@ $app.controller('RRobinCtrl', function($scope) {
 		}
 		p.sort(compareBy("at"));
 
-		drawRQ(canvas, rq);
+		scheduledProcess = drawRQ(canvas, rq);
 
 		$("#step").prop('disabled', false);
 	}
@@ -62,58 +63,65 @@ $app.controller('RRobinCtrl', function($scope) {
 
 		newLeft += burstLength+1;
 
-		bar.animate('width', burstLength, {
+		scheduledProcess.animate('left', 50, {
 			onChange: canvas.renderAll.bind(canvas),
-	 	 	duration: (burstLength/25)*150,
-	    easing: fabric.util.ease.easeOutCubic,
-			onComplete: function(){
+	  	duration: 500,
+		  easing: fabric.util.ease.easeOutCubic,
+		  onComplete: function(){
+		  	bar.animate('width', burstLength, {
+					onChange: canvas.renderAll.bind(canvas),
+			  	duration: rq[0].bt*150,
+				  easing: fabric.util.ease.easeOutCubic,
+					onComplete: function(){
 
-				if(burstLength/25 < 2) {
-					if(topTimerPos==128)
-						topTimerPos=150;
-					else
-						topTimerPos=128;
-				}
-				else
-					topTimerPos=128;
+						if(burstLength/25 < 2) {
+							if(topTimerPos==128)
+								topTimerPos=150;
+							else
+								topTimerPos=128;
+						}
+						else
+							topTimerPos=128;
 
-				canvas.add(new fabric.Text($scope.timer.toString(), {
-				  fill: rq[0].color,
-				  fontSize: 23,
-				  fontWeight: 'Bold',
-				  left: newLeft-10,
-				  top: topTimerPos
-				}));
+						canvas.add(new fabric.Text($scope.timer.toString(), {
+						  fill: rq[0].color,
+						  fontSize: 23,
+						  fontWeight: 'Bold',
+						  left: newLeft-10,
+						  top: topTimerPos
+						}));
 
-				for(var j=0; j<$scope.numberOfProcs; j++) {
-					if(p[j].at <= $scope.timer && !p[j].executed) {
-						rq.push(p[j]);
-						p[j].executed = 1;
-						$scope.waitTime += $scope.timer - p[j].at;
+						for(var j=0; j<$scope.numberOfProcs; j++) {
+							if(p[j].at <= $scope.timer && !p[j].executed) {
+								rq.push(p[j]);
+								p[j].executed = 1;
+								$scope.waitTime += $scope.timer - p[j].at;
+							}
+						}
+
+						if(rq[0].bt === 0) {
+							rq.splice(0,1);
+						}
+						else {
+							var x=rq[0];
+							rq.splice(0,1);
+							rq.push(x);
+						}
+
+						clearCPU(canvas);
+
+						if( rq[0].bt === 0 && rq.length === 1 ) {
+							$("#step").prop('disabled', true);
+							rq.splice(0,1);
+						}
+
+						scheduledProcess = drawRQ(canvas, rq);
+
+						if( rq[0] )  {
+							$("#step").prop('disabled', false);
+						}
 					}
-				}
-
-				if(rq[0].bt === 0) {
-					rq.splice(0,1);
-				}
-				else {
-					var x=rq[0];
-					rq.splice(0,1);
-					rq.push(x);
-				}
-
-				clearCPU(canvas);
-
-				if( rq[0].bt === 0 && rq.length === 1 ) {
-					$("#step").prop('disabled', true);
-					rq.splice(0,1);
-				}
-
-				drawRQ(canvas, rq);
-
-				if( rq[0] )  {
-					$("#step").prop('disabled', false);
-				}
+				});
 			}
 		});
  	}
