@@ -1,11 +1,12 @@
-$app = angular.module('SJFController', []);
+$app = angular.module('PREPRIORController', []);
 
-$app.controller('SJFCtrl', function($scope) {
+$app.controller('PREPRIORCtrl', function($scope) {
 	var canvas = new fabric.StaticCanvas('canvas');
 	$scope.colorsList = colorsList;
 	$("#step").prop('disabled', true);
 	$scope.at = [];
 	$scope.bt = [];
+	$scope.prior = [];
 	var newLeft, topTimerPos, i;
 	var p = [];
 	var rq = [];
@@ -23,14 +24,15 @@ $app.controller('SJFCtrl', function($scope) {
 		canvasReset(canvas);
 
 		for(var j=0;j<$scope.numberOfProcs;j++) {
-			p.push(new Process(j,Number($scope.bt[j]),Number($scope.at[j]),3,colorsList[j%5]));
+			p.push(new Process(j,Number($scope.bt[j]),Number($scope.at[j]),Number($scope.prior[j]),colorsList[j%5]));
 			if(p[j].at <= $scope.timer) {
 					rq.push(p[j]);
 					p[j].executed = 1;
+					p[j].arrived = 1;
 				}
 		}
 
-		rq.sort(compareBy("bt"));
+		rq.sort(compareBy("prior"));
 
 		scheduledProcess = drawRQ(canvas, rq);
 
@@ -42,13 +44,18 @@ $app.controller('SJFCtrl', function($scope) {
 		$("#step").prop('disabled', true);
 
 
-		$scope.waitTime += $scope.timer - rq[0].at;
+		var burstLength = choosePrior(p,rq);
+		rq[0].bt -= burstLength;
+		burstLength*=30;
 
-		$scope.timer += rq[0].bt;
+		$scope.timer += burstLength/30;
 
-		$scope.turnAroundTime += $scope.timer - rq[0].at;
+		if(rq.length)
+		for(var i=1;i<rq.length;i++)
+			$scope.waitTime += burstLength/30;
 
-		var burstLength = rq[0].bt*30;
+		if(rq[0].bt === 0)
+			$scope.turnAroundTime += $scope.timer - rq[0].at;
 
 		var bar = new fabric.Rect({
 			left:newLeft,
@@ -81,17 +88,18 @@ $app.controller('SJFCtrl', function($scope) {
 						  top: topTimerPos
 						}));
 
-						rq.splice(0,1);
+						if(rq[0].bt === 0) {
+							rq.splice(0,1);
+						}
 
 						for(var j=0; j<$scope.numberOfProcs; j++) {
-							if(p[j].at <= $scope.timer && !p[j].executed) {
+							if(p[j].at <= $scope.timer && !p[j].arrived) {
 								rq.push(p[j]);
-								rq.sort(compareBy("at"));
-								p[j].executed = 1;
+								p[j].arrived = 1;
 							}
 						}
 
-						rq.sort(compareBy("bt"));
+						rq.sort(compareBy("prior"));
 
 						clearCPU(canvas);
 

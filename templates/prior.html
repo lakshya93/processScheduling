@@ -1,4 +1,4 @@
-<h2>First Come First Serve</h2>
+<h2>Non-Premptive Priority</h2>
 
 <canvas id="canvas" width="1275" height="300"></canvas>
 
@@ -36,12 +36,14 @@
 				<td>Processes <input type="text" class="text-center" ng-change="updateNoProcesses()" ng-model="numberOfProcs"></td>
 				<td>Arrival Time</td>
 				<td>Burst Time</td>
+				<td>Priority</td>
 			</thead>
 			<tbody>
 				<tr ng-repeat="i in [] | range:numberOfProcs">
 					<td style="color:{{colorsList[i%5]}}">P{{i}}</td>
 					<td><input class="text-center" type="text" ng-model="at[i]"></td>
 					<td><input class="text-center" type="text" ng-model="bt[i]"></td>
+					<td><input class="text-center" type="text" ng-model="prior[i]"></td>
 				</tr>
 			</tbody>
 		</table>

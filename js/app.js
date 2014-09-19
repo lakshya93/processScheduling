@@ -1,8 +1,11 @@
 $app = angular.module('pScheduling', [
 	'ngRoute',
 	'FCFSController',
+	'PRIORController',
+	'PREPRIORController',
 	'SJFController',
-	'RRobinController'
+	'SRTFController',
+	'RROBINController'
 ]);
 
 $app.config(function($routeProvider) {
@@ -18,9 +21,21 @@ $app.config(function($routeProvider) {
 			templateUrl: 'templates/sjf.html',
 			controller: 'SJFCtrl'
 		})
+		.when('/srtf', {
+			templateUrl: 'templates/srtf.html',
+			controller: 'SRTFCtrl'
+		})
+		.when('/prior', {
+			templateUrl: 'templates/prior.html',
+			controller: 'PRIORCtrl'
+		})
+		.when('/preprior', {
+			templateUrl: 'templates/preprior.html',
+			controller: 'PREPRIORCtrl'
+		})
 		.when('/rrobin', {
 			templateUrl: 'templates/rrobin.html',
-			controller: 'RRobinCtrl'
+			controller: 'RROBINCtrl'
 		})
 		.otherwise({
 			redirectTo: '/home'

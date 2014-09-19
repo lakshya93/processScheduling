@@ -1,11 +1,12 @@
-$app = angular.module('SJFController', []);
+$app = angular.module('PRIORController', []);
 
-$app.controller('SJFCtrl', function($scope) {
+$app.controller('PRIORCtrl', function($scope) {
 	var canvas = new fabric.StaticCanvas('canvas');
 	$scope.colorsList = colorsList;
 	$("#step").prop('disabled', true);
 	$scope.at = [];
 	$scope.bt = [];
+	$scope.prior = [];
 	var newLeft, topTimerPos, i;
 	var p = [];
 	var rq = [];
@@ -23,14 +24,14 @@ $app.controller('SJFCtrl', function($scope) {
 		canvasReset(canvas);
 
 		for(var j=0;j<$scope.numberOfProcs;j++) {
-			p.push(new Process(j,Number($scope.bt[j]),Number($scope.at[j]),3,colorsList[j%5]));
+			p.push(new Process(j,Number($scope.bt[j]),Number($scope.at[j]),Number($scope.prior[j]),colorsList[j%5]));
 			if(p[j].at <= $scope.timer) {
 					rq.push(p[j]);
 					p[j].executed = 1;
 				}
 		}
 
-		rq.sort(compareBy("bt"));
+		rq.sort(compareBy("prior"));
 
 		scheduledProcess = drawRQ(canvas, rq);
 
@@ -91,7 +92,7 @@ $app.controller('SJFCtrl', function($scope) {
 							}
 						}
 
-						rq.sort(compareBy("bt"));
+						rq.sort(compareBy("prior"));
 
 						clearCPU(canvas);
 

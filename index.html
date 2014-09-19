@@ -23,7 +23,10 @@
 		<script src="js/app.js"></script>
 		<script src="js/FCFSCtrl.js"></script>
 		<script src="js/SJFCtrl.js"></script>
-		<script src="js/RRobinCtrl.js"></script>
+		<script src="js/SRTFCtrl.js"></script>
+		<script src="js/PRIORCtrl.js"></script>
+		<script src="js/PREPRIORCtrl.js"></script>
+		<script src="js/RROBINCtrl.js"></script>
 	</head>
 
 
@@ -44,13 +47,19 @@
 							<a href="#fcfs" class="menu-toggle">First Come First Serve</a>
 					</li>
 					<li>
-							<a href="#rrobin" class="menu-toggle">Round Robin</a>
-					</li>
-					<li>
 							<a href="#sjf" class="menu-toggle">Shortest Job First</a>
 					</li>
 					<li>
-							<a href="#">Events</a>
+							<a href="#srtf" class="menu-toggle">Shortest Rem Time First</a>
+					</li>
+					<li>
+							<a href="#prior" class="menu-toggle">Non-Premptive Priority</a>
+					</li>
+					<li>
+							<a href="#preprior" class="menu-toggle">Premptive Priority</a>
+					</li>
+					<li>
+							<a href="#rrobin" class="menu-toggle">Round Robin</a>
 					</li>
 				</ul>
 			</div>
@@ -62,6 +71,7 @@
 					<div class="container-fluid">
 							<div class="row">
 									<div class="col-lg-12">
+											<a href="" class="menu-toggle glyphicon glyphicon-th-list" id="menubtn"></a>
 											<ng-view></ng-view>
 									</div>
 							</div>
@@ -75,5 +85,3 @@
 	</body>
 
 </html>
-
-<!-- 9916161530 -->
