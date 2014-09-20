@@ -45,16 +45,19 @@ $app.controller('SRTFCtrl', function($scope) {
 
 		var burstLength = chooseBurst(p,rq);
 		rq[0].bt -= burstLength;
+		console.log(burstLength);
 		burstLength*=30;
 
 		$scope.timer += burstLength/30;
 
-		if(rq.length)
-		for(var i=1;i<rq.length;i++)
-			$scope.waitTime += burstLength/30;
+		if(rq.length) {
+			for(var i=1;i<rq.length;i++)
+				$scope.waitTime += burstLength/30;
+		}
 
-		if(rq[0].bt === 0)
+		if(rq[0].bt === 0) {
 			$scope.turnAroundTime += $scope.timer - rq[0].at;
+		}
 
 		var bar = new fabric.Rect({
 			left:newLeft,

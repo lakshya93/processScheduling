@@ -120,22 +120,22 @@ function chooseBurst(p, rq) {
 		if(!p[i].arrived)
 			p1.push(p[i]);
 	}
-	if(p1.length) {
-		var x = minAt(p1);
-		var burstLength = rq[0].bt-x.at>x.bt ? x.at : rq[0].bt ;
-		return burstLength;
+	if(p1.length>0) {
+		i=0;
+
+		while(rq[0].bt-p1[i].at<=p1[i].bt && i<p1.length){
+			i++;
+		}
+		if(i===p1.length){
+			return rq[0].bt;
+		}
+		else
+			return p1[i].at;
 	}
 	else
 		return rq[0].bt;
 }
 
-function minAt(p) {
-	var min = p[0];
-	for(var i=0; i<p.length;i++) {
-		min = p[i].at<min.at ? p[i] : min;
-	}
-	return min;
-}
 
 function choosePrior(p, rq) {
 	var p1 = [];
@@ -143,19 +143,18 @@ function choosePrior(p, rq) {
 		if(!p[i].arrived)
 			p1.push(p[i]);
 	}
-	if(p1.length) {
-		var x = minPrior(p1);
-		var burstLength = rq[0].prior > x.prior ? rq[0].bt : x.at ;
-		return burstLength;
+	if(p1.length>0) {
+		i=0;
+
+		while(rq[0].prior <= p1[i].prior && i<p1.length){
+			i++;
+		}
+		if(i===p1.length){
+			return rq[0].bt;
+		}
+		else
+			return p1[i].at;
 	}
 	else
 		return rq[0].bt;
-}
-
-function minPrior(p) {
-	var min = p[0];
-	for(var i=0; i<p.length;i++) {
-		min = p[i].proir<min.prior ? p[i] : min;
-	}
-	return min;
 }
