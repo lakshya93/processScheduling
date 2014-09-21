@@ -1,0 +1,200 @@
+One day Alice visited Byteland to purchase jewels for her upcoming wedding anniversary.
+In Byteland, every Jewelry shop has their own discount methods to attract the customers. One discount method called Buy1-Get1 caught Alice's attention. That is, Alice buys one jewel, then she can get one additional jewel with the same color without charge by Buy1-Get1.
+Alice lists the needed jewels as a string S, each letter denotes one jewel, and the same letters denote the same colors of jewels, and the different letters denote the different colors of jewels. The cost of each jewel is 1. Your task is to calculate the minimum cost for getting all the jewels Alice listed.
+
+Input
+The first line of input contains a single line T, which represents the number of test cases. Then T lines will follow, and each contains a string S, which represents the jewels Alice needed.
+
+Output
+Output the minimum cost for each test case.
+
+Constraints
+1 ≤ T ≤ 100
+1 ≤ |S| ≤ 200, where |S| represents the length of the string S.
+
+The string S is case sensitive, and will contain only English characters in the range [a-z], [A-Z].
+
+Example
+
+Input:
+4
+ssss
+ssas
+sa
+s
+
+Output:
+2
+3
+2
+1
+
+Explanation
+
+In the first sample case, Alice needs 4 jewel of color s. One of the optimal way is the following:
+Buy the first s with cost 1, and she can get the second s without charge. Then buy the third s with cost 1, and she can get the last s without charge. In this case, she get 4 jewels with only cost 2.
+In the second sample case, Alice needs 3 jewels of color s and 1 jewel of color a. One of the optimal way is the following:
+Buy the second s with cost 1, and she can get the last s without charge. Then buy the a and the first s with cost 2. In this case, she get 4 jewels with only cost 3.
+In the third and fourth sample cases, she cannot save her money by using Buy1-Get1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Alice and Bob play the following game. They choose a number N to play with. The rules are as follows :
+1) Alice plays first, and the two players alternate.
+2) In his/her turn, a player can subtract from N any proper divisor (not equal to N) of N. The number thus obtained is the new N.
+3) The person who cannot make a move in his/her turn loses the game.
+Assuming both play optimally, who wins the game ?
+
+Input :
+The first line contains the number of test cases T. Each of the next T lines contains an integer N.
+
+Output :
+Output T lines, one for each test case, containing "ALICE" if Alice wins the game, or "BOB" otherwise.
+
+Sample Input :
+2
+1
+2
+
+Sample Output :
+BOB
+ALICE
+
+Constraints :
+1 <= T <= 10000
+1 <= N <= 1000000000
+
+Note : For the first test case, Alice cannot make any move and hence Bob wins the game. For the second test case, Alice subtracts 1 from N. Now, Bob cannot make a move and loses the game.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The Chef likes to stay in touch with his staff. So, the Chef, the head server, and the sous-chef all carry two-way transceivers so they can stay in constant contact. Of course, these transceivers have a limited range so if two are too far apart, they cannot communicate directly.
+The Chef invested in top-of-the-line transceivers which have a few advanced features. One is that even if two people cannot talk directly because they are out of range, if there is another transceiver that is close enough to both, then the two transceivers can still communicate with each other using the third transceiver as an intermediate device.
+There has been a minor emergency in the Chef's restaurant
+and he needs to communicate with both the head server and the sous-chef right away. Help the Chef determine if it is possible for all three people to communicate with each other, even if two must communicate through the third because they are too far apart.
+
+Input
+The first line contains a single positive integer T ≤ 100 indicating the number of test cases to follow. The first line of each test case contains a positive integer R ≤ 1,000 indicating that two transceivers can communicate directly without an intermediate transceiver if they are at most R meters away from each other. The remaining three lines of the test case describe the current locations of the Chef, the head server, and the sous-chef, respectively. Each such line contains two integers X,Y (at most 10,000 in absolute value) indicating that the respective person is located at position X,Y.
+
+Output
+For each test case you are to output a single line containing a single string. If it is possible for all three to communicate then you should output "yes". Otherwise, you should output "no".
+To be clear, we say that two transceivers are close enough to communicate directly if the length of the straight line connecting their X,Y coordinates is at most R.
+
+Example
+
+Input:
+3
+1
+0 1
+0 0
+1 0
+2
+0 1
+0 0
+1 0
+2
+0 0
+0 2
+2 1
+
+Output:
+yes
+yes
+no
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The Little Elephant from the Zoo of Lviv currently is on the military mission. There are N enemy buildings placed in a row and numbered from left to right strating from 0. Each building i (except the first and the last) has exactly two adjacent buildings with indices i-1 and i+1. The first and the last buildings have just a single adjacent building.
+Some of the buildings contain bombs. When bomb explodes in some building it destroys it and all adjacent to it buildings.
+You are given the string S of length N, where Si is 1 if the i-th building contains bomb, 0 otherwise. Find for the Little Elephant the number of buildings that will not be destroyed after all bombs explode. Please note that all bombs explode simultaneously.
+
+Input
+The first line contains single integer T - the number of test cases. T test cases follow. The first line of each test case contains the single integer N - the number of buildings. The next line contains the string S of length N consisted only of digits 0 and 1.
+
+Output
+In T lines print T inetgers - the answers for the corresponding test cases.
+
+Constraints
+1 <= T <= 100
+1 <= N <= 1000
+
+Example
+
+Input:
+3
+3
+010
+5
+10001
+7
+0000000
+
+Output:
+0
+1
+7

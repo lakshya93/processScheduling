@@ -124,7 +124,7 @@ function chooseBurstSRTF(p, rq, t) {
 		p1.sort(compareBy("at"));
 		i=0;
 
-		while(i<p1.length && rq[0].bt-p1[i].at-t<=p1[i].bt){
+		while(i<p1.length && rq[0].bt-(p1[i].at-t)<=p1[i].bt){
 			i++;
 		}
 		if(i===p1.length){
