@@ -1,10 +1,12 @@
 {
   "name": "processScheduling",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "homepage": "https://github.com/lakshya93/processScheduling",
   "authors": [
     "Lakshya Ranganath <lakshya93@gmail.com>",
+    "Peri Nikhil <peri.nikhil10@gmail.com>"
   ],
-  "description": "Operating Systems: Process Scheduling",
+  "description": "Operating Systems : Process Scheduling Algorithms",
   "main": "index.html",
   "license": "MIT",
   "private": true,
@@ -16,7 +18,10 @@
     "tests"
   ],
   "dependencies": {
+    "angular-route": "~1.2.23",
+    "fabric": "~1.4.11",
     "angularjs": "~1.2.23",
+    "jquery": ">= 1.9.0",
     "bootstrap": "~3.2.0"
   }
 }

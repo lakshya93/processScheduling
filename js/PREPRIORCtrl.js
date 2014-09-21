@@ -44,7 +44,7 @@ $app.controller('PREPRIORCtrl', function($scope) {
 		$("#step").prop('disabled', true);
 
 
-		var burstLength = choosePrior(p,rq);
+		var burstLength = chooseBurstPrePrior(p,rq,$scope.timer);
 		rq[0].bt -= burstLength;
 		burstLength*=30;
 

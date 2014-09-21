@@ -114,7 +114,7 @@ function drawRQ(canvas, rq) {
 	return scheduledProcess;
 }
 
-function chooseBurst(p, rq) {
+function chooseBurstSRTF(p, rq) {
 	var p1 = [];
 	for(var i=0;i<p.length;i++) {
 		if(!p[i].arrived)
@@ -137,7 +137,7 @@ function chooseBurst(p, rq) {
 }
 
 
-function choosePrior(p, rq) {
+function chooseBurstPrePrior(p, rq,t) {
 	var p1 = [];
 	for(var i=0;i<p.length;i++) {
 		if(!p[i].arrived)
@@ -153,7 +153,7 @@ function choosePrior(p, rq) {
 			return rq[0].bt;
 		}
 		else
-			return p1[i].at;
+			return p1[i].at - t;
 	}
 	else
 		return rq[0].bt;
