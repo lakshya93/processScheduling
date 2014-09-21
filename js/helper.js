@@ -70,7 +70,7 @@ function clearCPU(canvas) {
 		height: 50
 	}).animate('width', -50, {
 			onChange: canvas.renderAll.bind(canvas),
-	  	duration: 400,
+	  	duration: 500,
 		  easing: fabric.util.ease.easeOutCubic
 	}));
 

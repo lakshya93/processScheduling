@@ -7,7 +7,7 @@ $app.controller('PREPRIORCtrl', function($scope) {
 	$scope.at = [];
 	$scope.bt = [];
 	$scope.prior = [];
-	var newLeft, topTimerPos, i;
+	var newLeft, topTimerPos;
 	var p = [];
 	var rq = [];
 	var scheduledProcess = {};

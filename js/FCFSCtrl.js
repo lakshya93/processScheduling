@@ -6,7 +6,7 @@ $app.controller('FCFSCtrl', function($scope) {
 	$("#step").prop('disabled', true);
 	$scope.at = [];
 	$scope.bt = [];
-	var newLeft, topTimerPos, i;
+	var newLeft, topTimerPos;
 	var p = [];
 	var rq = [];
 	var scheduledProcess = {};
