@@ -43,9 +43,8 @@ $app.controller('SRTFCtrl', function($scope) {
 		$("#step").prop('disabled', true);
 
 
-		var burstLength = chooseBurstSRTF(p,rq);
+		var burstLength = chooseBurstSRTF(p, rq, $scope.timer);
 		rq[0].bt -= burstLength;
-		console.log(burstLength);
 		burstLength*=30;
 
 		$scope.timer += burstLength/30;

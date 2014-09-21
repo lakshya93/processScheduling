@@ -114,30 +114,31 @@ function drawRQ(canvas, rq) {
 	return scheduledProcess;
 }
 
-function chooseBurstSRTF(p, rq) {
+function chooseBurstSRTF(p, rq, t) {
 	var p1 = [];
 	for(var i=0;i<p.length;i++) {
 		if(!p[i].arrived)
 			p1.push(p[i]);
 	}
 	if(p1.length>0) {
+		p1.sort(compareBy("at"));
 		i=0;
 
-		while(rq[0].bt-p1[i].at<=p1[i].bt && i<p1.length){
+		while(i<p1.length && rq[0].bt-p1[i].at-t<=p1[i].bt){
 			i++;
 		}
 		if(i===p1.length){
 			return rq[0].bt;
 		}
 		else
-			return p1[i].at;
+			return p1[i].at - t;
 	}
 	else
 		return rq[0].bt;
 }
 
 
-function chooseBurstPrePrior(p, rq,t) {
+function chooseBurstPrePrior(p, rq, t) {
 	var p1 = [];
 	for(var i=0;i<p.length;i++) {
 		if(!p[i].arrived)
@@ -146,7 +147,7 @@ function chooseBurstPrePrior(p, rq,t) {
 	if(p1.length>0) {
 		i=0;
 
-		while(rq[0].prior <= p1[i].prior && i<p1.length){
+		while(i<p1.length && rq[0].prior <= p1[i].prior){
 			i++;
 		}
 		if(i===p1.length){
