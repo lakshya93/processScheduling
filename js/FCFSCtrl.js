@@ -71,15 +71,6 @@ $app.controller('FCFSCtrl', function($scope) {
 				  easing: fabric.util.ease.easeOutCubic,
 					onComplete: function(){
 
-						// if(rq[0].bt<2) {
-						// 	if(topTimerPos==128)
-						// 		topTimerPos=150;
-						// 	else
-						// 		topTimerPos=128;
-						// }
-						// else
-						// 	topTimerPos=128;
-
 						canvas.add(new fabric.Text($scope.timer.toString(), {
 						  fill: rq[0].color,
 						  fontSize: 23,

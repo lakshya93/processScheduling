@@ -1,7 +1,7 @@
 body {
-	background-color: #000;
+	background-color: #2f2f2f;
 	color: #f0f0f0 !important;
-	font-family: "Monospace" !important;
+	font-family: 'Helvetica Neue', sans-serif;
 }
 
 #sidebar-wrapper {
