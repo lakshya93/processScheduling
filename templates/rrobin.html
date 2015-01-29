@@ -49,3 +49,19 @@
 		<button id="assign" class="btn btn-default btn-sm text-center" ng-click="assignValues()">Assign</button>
 	</div>
 </div>
+
+<div>
+	<h2></h2>
+	<div class="row">
+		<div class="col-sm-3 col-sm-offset-2">
+			<div>
+				<p type="text" ng-repeat="i in [] | range:numberOfProcs">Wait Time of P{{i}} : {{burst}} + {{burst}} = {{wt[i]}}</p>
+			</div>
+ 		</div>
+  		<div class="col-sm-4 col-offset-3">
+			<div>
+				<p type="text" ng-repeat="i in [] | range:numberOfProcs" >Turnaround Time of P{{i}} : {{et[i]}} - {{at[i]}} = {{tt[i]}}</p>
+			</div>
+		</div>
+	</div>
+</div>

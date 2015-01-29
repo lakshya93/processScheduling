@@ -1,8 +1,10 @@
-$("#menubtn").hide();
-$(".menu-toggle").click(function() {
-		$("#wrapper").toggleClass("toggled");
-		$("#menubtn").toggle();
-});
+$("#wrapper").toggleClass("toggled");
+
+// $("#menubtn").hide();
+// $(".menu-toggle").click(function() {
+// 		$("#wrapper").toggleClass("toggled");
+// 		$("#menubtn").toggle();
+// });
 
 function Process (id, bt, at, prior, color, executed) {
 	this.id = id;
@@ -12,6 +14,8 @@ function Process (id, bt, at, prior, color, executed) {
 	this.color = color;
 	this.executed = executed || 0;
 	this.arrived = 0;
+	this.wt = 0;
+	this.tt = 0;
 }
 
 var colorsList = [
@@ -158,4 +162,41 @@ function chooseBurstPrePrior(p, rq, t) {
 	}
 	else
 		return rq[0].bt;
+}
+
+function init($scope)
+{
+	$scope.timer = 0;
+	$scope.waitTime = 0;
+	$scope.turnAroundTime = 0;
+	$scope.wt = [];
+	$scope.tt = [];
+	//for(var i=0;i<$scope.numberOfProcs;i++)
+	$scope.et = ['X','X','X','X','X','X','X','X','X','X'];
+	$scope.st = ['X','X','X','X','X','X','X','X','X','X'];
+	$scope.exec = [0,0,0,0,0,0,0,0,0,0];
+	newLeft = 25;
+	topTimerPos = 128;
+	p = [];
+	rq = [];
+}
+
+function setStepDisplayInfo($scope, rq)
+{
+	var curId = rq.id;
+	p[curId].wt = $scope.timer - p[curId].at;
+
+	$scope.wt[curId] = p[curId].wt;
+	$scope.at[curId] = p[curId].at;
+	$scope.st[curId] = $scope.timer;
+	
+	$scope.waitTime += $scope.timer - rq.at;
+
+	$scope.timer += rq[0].bt;
+
+	$scope.turnAroundTime += $scope.timer - rq.at;
+	
+	p[curId].tt = $scope.timer - p[curId].at;
+	$scope.tt[curId] = p[curId].tt;
+	$scope.et[curId] = $scope.timer;
 }

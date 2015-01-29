@@ -4,9 +4,16 @@ $app.controller('PRIORCtrl', function($scope) {
 	var canvas = new fabric.StaticCanvas('canvas');
 	$scope.colorsList = colorsList;
 	$("#step").prop('disabled', true);
+	
 	$scope.at = [];
 	$scope.bt = [];
 	$scope.prior = [];
+	$scope.wt = [];
+	$scope.tt = [];
+	$scope.exec = [];
+	$scope.et = ['X','X','X','X','X','X','X','X','X','X'];
+	$scope.st = ['X','X','X','X','X','X','X','X','X','X'];
+
 	var newLeft, topTimerPos;
 	var p = [];
 	var rq = [];
@@ -14,9 +21,14 @@ $app.controller('PRIORCtrl', function($scope) {
 
 	$scope.assignValues = function() {
 		$scope.timer = 0;
-		newLeft = 25;
 		$scope.waitTime = 0;
 		$scope.turnAroundTime = 0;
+		$scope.wt = [];
+		$scope.tt = [];
+		$scope.et = ['X','X','X','X','X','X','X','X','X','X'];
+		$scope.st = ['X','X','X','X','X','X','X','X','X','X'];
+		$scope.exec = [];
+		newLeft = 25;
 		topTimerPos = 128;
 		p = [];
 		rq = [];
@@ -42,12 +54,22 @@ $app.controller('PRIORCtrl', function($scope) {
 
 		$("#step").prop('disabled', true);
 
-
 		$scope.waitTime += $scope.timer - rq[0].at;
+
+		var curId = rq[0].id;
+		p[curId].wt = $scope.timer - p[curId].at;
+
+		$scope.wt[curId] = p[curId].wt;
+		$scope.at[curId] = p[curId].at;
+		$scope.st[curId] = $scope.timer;
 
 		$scope.timer += rq[0].bt;
 
 		$scope.turnAroundTime += $scope.timer - rq[0].at;
+		
+		p[curId].tt = $scope.timer - p[curId].at;
+		$scope.tt[curId] = p[curId].tt;
+		$scope.et[curId] = $scope.timer;
 
 		var burstLength = rq[0].bt*30;
 
@@ -81,6 +103,9 @@ $app.controller('PRIORCtrl', function($scope) {
 						  left: newLeft-10,
 						  top: topTimerPos
 						}));
+
+						p[curId].executed = 1;
+						$scope.exec[curId] = 1;
 
 						rq.splice(0,1);
 

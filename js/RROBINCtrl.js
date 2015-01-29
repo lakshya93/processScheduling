@@ -4,8 +4,17 @@ $app.controller('RROBINCtrl', function($scope) {
 	var canvas = new fabric.StaticCanvas('canvas');
 	$scope.colorsList = colorsList;
 	$("#step").prop('disabled', true);
+
 	$scope.at = [];
 	$scope.bt = [];
+	$scope.wt = [];
+	$scope.tt = [];
+	$scope.exec = [0,0,0,0,0,0,0,0,0,0];
+	$scope.et = ['X','X','X','X','X','X','X','X','X','X'];
+	$scope.st = ['X','X','X','X','X','X','X','X','X','X'];
+
+	$scope.burst;
+
 	var newLeft, topTimerPos;
 	var p = [];
 	var rq = [];
@@ -13,9 +22,17 @@ $app.controller('RROBINCtrl', function($scope) {
 
 	$scope.assignValues = function() {
 		$scope.timer = 0;
-		newLeft = 25;
 		$scope.waitTime = 0;
 		$scope.turnAroundTime = 0;
+		$scope.wt = [0,0,0,0,0,0,0,0,0,0];
+		$scope.tt = [];
+		$scope.et = ['X','X','X','X','X','X','X','X','X','X'];
+		$scope.st = ['X','X','X','X','X','X','X','X','X','X'];
+		$scope.exec = [0,0,0,0,0,0,0,0,0,0];
+
+		$scope.burst = 0;
+
+		newLeft = 25;
 		topTimerPos = 128;
 		p = [];
 		rq = [];
@@ -40,16 +57,27 @@ $app.controller('RROBINCtrl', function($scope) {
 
 		$("#step").prop('disabled', true);
 
+		var curId = rq[0].id;
+
 		var burstLength = rq[0].bt>$scope.tq ? $scope.tq*30 : rq[0].bt*30;
 		rq[0].bt -= burstLength/30;
 
 		$scope.timer += burstLength/30;
+		$scope.burst = burstLength/30;
 
 		for(var i=1;i<rq.length;i++)
+		{
+			$scope.wt[rq[i].id] += burstLength/30;
 			$scope.waitTime += burstLength/30;
+		}
 
 		if(rq[0].bt === 0)
+		{
+			$scope.tt[curId] = $scope.timer - rq[0].at;
+			$scope.exec[curId] = 1;
+			$scope.et[curId] = $scope.timer;
 			$scope.turnAroundTime += $scope.timer - rq[0].at;
+		}
 
 		var bar = new fabric.Rect({
 			left:newLeft,
