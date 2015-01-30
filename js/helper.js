@@ -1,10 +1,8 @@
-$("#wrapper").toggleClass("toggled");
-
-// $("#menubtn").hide();
-// $(".menu-toggle").click(function() {
-// 		$("#wrapper").toggleClass("toggled");
-// 		$("#menubtn").toggle();
-// });
+$("#menubtn").hide();
+$(".menu-toggle").click(function() {
+	$("#wrapper").toggleClass("toggled");
+	$("#menubtn").toggle();
+});
 
 function Process (id, bt, at, prior, color, executed) {
 	this.id = id;
@@ -44,7 +42,7 @@ function canvasReset(canvas) {
 		left:25,
 		top:200,
 		stroke: '#f0f0f0',
-		strokeWidth: 3,
+		strokeWidth: 2,
 		width: 75,
 		height: 75,
 	}));
@@ -82,20 +80,22 @@ function clearCPU(canvas) {
 
 function drawRQ(canvas, rq) {
 
-	var newLeft = 235;
+	var newLeft = 270;
 	var pno = "P"+rq[0].id;
 
 	canvas.add(new fabric.Rect({
-		left: 180,
-		top: 220,
+		left: 200,
+		top: 215,
 		fill: '#000',
+		stroke: '#f0f0f0',
+		strokeWidth: 2,
 		width: 800,
 		height: 50
 	}));
 
 	var scheduledProcess = new fabric.Text(pno, {
-		left: 180,
-		top: 220,
+		left: 220,
+		top: 222,
 		fill: rq[0].color,
 		fontWeight: 'Bold',
 		fontSize: 26
@@ -107,12 +107,12 @@ function drawRQ(canvas, rq) {
 		pno = "P"+rq[i].id;
 		canvas.add(new fabric.Text(pno, {
 			left: newLeft,
-			top: 220,
+			top: 222,
 			fill: rq[i].color,
 			fontWeight: 'Bold',
 			fontSize: 26
 		}));
-		newLeft += 55;
+		newLeft += 50;
 	}
 
 	return scheduledProcess;
@@ -163,6 +163,7 @@ function chooseBurstPrePrior(p, rq, t) {
 	else
 		return rq[0].bt;
 }
+
 
 function init($scope)
 {
