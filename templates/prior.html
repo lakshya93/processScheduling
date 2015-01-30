@@ -9,21 +9,19 @@
 		<button id="step" class="btn btn-default btn-sm text-center" ng-click="runIt()">Step</button>
 		<!-- <h3 class="text-center">Elapsed : {{timer}}</h3> -->
 	</div>
-	<div class="well well-sm col-sm-8 col-sm-offset-1">
+	<div class="well well-sm col-sm-8 col-sm-offset-1" ng-show="numberOfProcs">
 		<div class="row">
-			<div class="col-sm-6">
-				<h4 class="text-center">Total Wait Time : {{waitTime | number:2}}</h4>
+			<div class="col-sm-6 text-center">
+				<h5 ng-repeat="i in [] | range:numberOfProcs">Wait Time of <span style="color:{{colorsList[i%5]}}">P{{i}}</span>  :  {{st[i]}}  -  {{at[i]}}  =  {{wt[i]}}</h5>
+				<hr>
+				<h4>Total Wait Time : {{waitTime | number:2}}</h4>
+				<h4>Avg Wait Time : {{(waitTime / numberOfProcs) | number:2}}</h4>
 			</div>
-			<div class="col-sm-6">
-				<h4 class="text-center">Total Turnaround Time : {{turnAroundTime | number:2}}</h4>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6">
-				<h4 class="text-center">Avg Wait Time : {{(waitTime / numberOfProcs) | number:2}}</h4>
-			</div>
-			<div class="col-sm-6">
-				<h4 class="text-center">Avg Turnaround Time : {{(turnAroundTime / numberOfProcs) | number:2}}</h4>
+			<div class="col-sm-6 text-center">
+				<h5 ng-repeat="i in [] | range:numberOfProcs" >Turnaround Time of <span style="color:{{colorsList[i%5]}}">P{{i}}</span>  :  {{et[i]}}  -  {{at[i]}}  =  {{tt[i]}}</h5>
+				<hr>
+				<h4>Total Turnaround Time : {{turnAroundTime | number:2}}</h4>
+				<h4>Avg Turnaround Time : {{(turnAroundTime / numberOfProcs) | number:2}}</h4>
 			</div>
 		</div>
 	</div>
@@ -33,7 +31,7 @@
 	<div class="col-sm-8 col-sm-offset-2">
 		<table class="table">
 			<thead>
-				<td>Processes <input type="text" class="text-center" ng-change="updateNoProcesses()" ng-model="numberOfProcs"></td>
+				<td>Processes <input type="text" class="text-center" ng-model="numberOfProcs"></td>
 				<td>Arrival Time</td>
 				<td>Burst Time</td>
 				<td>Priority</td>
@@ -48,21 +46,5 @@
 			</tbody>
 		</table>
 		<button id="assign" class="btn btn-default btn-sm text-center" ng-click="assignValues()">Assign</button>
-	</div>
-</div>
-
-<div>
-	<h2></h2>
-	<div class="row">
-		<div class="col-sm-4 col-sm-offset-2">
-			<div>
-				<p type="text" ng-repeat="i in [] | range:numberOfProcs">Wait Time of P{{i}}  :  {{st[i]}}  -  {{at[i]}}  =  {{wt[i]}}</p>
-			</div>
- 		</div>
-  		<div class="col-sm-4 col-offset-2">
-			<div>
-				<p type="text" ng-repeat="i in [] | range:numberOfProcs" >Turnaround Time of P{{i}}  :  {{et[i]}}  -  {{at[i]}}  =  {{tt[i]}}</p>
-			</div>
-		</div>
 	</div>
 </div>
