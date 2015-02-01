@@ -127,6 +127,15 @@ $app.controller('RROBINCtrl', function($scope) {
 							rq.push(x);
 						}
 
+						for(var i=0; i<rq.length; i++)
+						{
+							if(rq[i].at > $scope.timer - burstLength/30)
+							{
+								$scope.wt[rq[i].id] = $scope.timer - rq[i].at;
+								$scope.waitTime += $scope.timer - rq[i].at;
+							}
+						}
+						
 						clearCPU(canvas);
 
 						if( rq[0].bt === 0 && rq.length === 1 ) {

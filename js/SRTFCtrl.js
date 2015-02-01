@@ -121,6 +121,15 @@ $app.controller('SRTFCtrl', function($scope) {
 							}
 						}
 
+						for(var i=0; i<rq.length; i++)
+						{
+							if(rq[i].at > $scope.timer - burstLength/30)
+							{
+								$scope.wt[rq[i].id] = $scope.timer - rq[i].at;
+								$scope.waitTime += $scope.timer - rq[i].at;
+							}
+						}
+
 						rq.sort(compareBy("bt"));
 
 						clearCPU(canvas);
