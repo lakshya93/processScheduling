@@ -1,7 +1,15 @@
+* {
+	border-radius: 0 !important;
+}
+
 body {
 	background-color: #2f2f2f;
 	color: #f0f0f0 !important;
 	font-family: 'Helvetica Neue', sans-serif;
+}
+
+.home-well {
+	padding: 75px;
 }
 
 #sidebar-wrapper {
