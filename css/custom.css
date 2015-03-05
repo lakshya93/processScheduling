@@ -2,8 +2,9 @@
 	border-radius: 0 !important;
 }
 
+
 body {
-	background-color: #2f2f2f;
+	background-color: rgba(44, 62, 80, 1.0);
 	color: #f0f0f0 !important;
 	font-family: 'Helvetica Neue', sans-serif;
 }
@@ -13,11 +14,16 @@ body {
 }
 
 #sidebar-wrapper {
-	background-color: #1d1d1d;
+	background-color: rgba(0, 0, 0, 0.3);
+	/* border-right: 1px solid #eee; */
+}
+
+.sidebar-nav * {
+	color: #f0f0f0 !important;
 }
 
 #menubtn {
-	color: #666;
+	color: #f0f0f0;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -27,19 +33,16 @@ body {
 	text-decoration: none;
 }
 
-#menubtn:hover {
-	color: #f0f0f0;
-}
 .sidebar-brand {
-	background-color: #0e0e0e;
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 .well {
-	background-color: #1d1d1d;
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 input[type=text] {
-	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.3);
 	color: #f0f0f0;
 	font-size: 1.2em;
 	width:35px;

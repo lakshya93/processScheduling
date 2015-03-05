@@ -16,13 +16,22 @@ function Process (id, bt, at, prior, color, executed) {
 	this.tt = 0;
 }
 
+// var colorsList = [
+// 	"rgb(191, 114, 116)",
+// 	"rgb(114, 153, 191)",
+// 	"rgb(144, 191, 114)",
+// 	"rgb(191, 114, 188)",
+// 	"rgb(191, 184, 114)",
+// 	"rgb(197, 120, 93)"
+// ];
+
 var colorsList = [
-	"rgb(191, 114, 116)",
-	"rgb(114, 153, 191)",
-	"rgb(144, 191, 114)",
-	"rgb(191, 114, 188)",
-	"rgb(191, 184, 114)",
-	"rgb(197, 120, 93)"
+	"rgb(231, 76, 60)",
+	"rgb(52, 152, 219)",
+	"rgb(26, 188, 156)",
+	"rgb(241, 196, 15)",
+	"rgb(155, 89, 182)",
+	"rgb(211, 84, 0)"
 ];
 
 function compareBy (ch) {
@@ -41,6 +50,7 @@ function canvasReset(canvas) {
 	canvas.add(new fabric.Rect({
 		left:25,
 		top:200,
+		fill: '#081A2C',
 		stroke: '#f0f0f0',
 		strokeWidth: 2,
 		width: 75,
@@ -67,7 +77,7 @@ function clearCPU(canvas) {
 	canvas.add(new fabric.Rect({
 		left: 89,
 		top: 215,
-		fill: '#000',
+		fill: '#081A2C',
 		width: 0,
 		height: 50
 	}).animate('width', -50, {
@@ -86,7 +96,7 @@ function drawRQ(canvas, rq) {
 	canvas.add(new fabric.Rect({
 		left: 200,
 		top: 215,
-		fill: '#000',
+		fill: '#081A2C',
 		stroke: '#f0f0f0',
 		strokeWidth: 2,
 		width: 800,
@@ -190,13 +200,13 @@ function setStepDisplayInfo($scope, rq)
 	$scope.wt[curId] = p[curId].wt;
 	$scope.at[curId] = p[curId].at;
 	$scope.st[curId] = $scope.timer;
-	
+
 	$scope.waitTime += $scope.timer - rq.at;
 
 	$scope.timer += rq[0].bt;
 
 	$scope.turnAroundTime += $scope.timer - rq.at;
-	
+
 	p[curId].tt = $scope.timer - p[curId].at;
 	$scope.tt[curId] = p[curId].tt;
 	$scope.et[curId] = $scope.timer;
